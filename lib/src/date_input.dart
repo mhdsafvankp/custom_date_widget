@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 
 class CustomDateField extends StatefulWidget {
 
-  CustomDateField(
+  const CustomDateField(
       {Key? key,
         this.preFillDate,
         required this.errorCallback,
@@ -21,7 +21,7 @@ class CustomDateField extends StatefulWidget {
   final Function() onPressRightIcon;
   final Function()? onTapCallBack;
   final Function(String)? onParticularTapCallBack;
-  Map<String, dynamic>? validation;
+  final Map<String, dynamic>? validation;
   final String? isMinor;
 
   final Icon rightIconSvg;

@@ -1,23 +1,3 @@
-
-## Features
-
-Date input widget with dd/mm/yyyy hint
-
-release items:
-* -- DD/MM/YYYY hint maintaining based on the input
-* -- minor (18 years old validation)
-* -- error call backs and indications
-* -- right calendar opening icon press handling
-
-[//]: # (## Getting started)
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-
 import 'package:custom_date_widget/custom_date_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -31,11 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Date Widget Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Date Widget Home Page'),
     );
   }
 }
@@ -50,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,16 +48,9 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressRightIcon: () {
             print('onPressRightIcon: ');
           },
-          rightIconSvg: Icon(Icons.call_to_action), isMinor: 'false',),
-      ),
+          rightIconSvg: Icon(Icons.call_to_action), isMinor: 'false',
+        )
+      )
     );
   }
 }
-
-```
-
-## Additional information
- Widget in progress '\n'
- connect me on: '\n'
- @mhdsafvankp@gmail.com
- 
