@@ -40,15 +40,15 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: CustomDateField(
           errorCallback: (v) {
-            print('errorCallback: $v');
+            debugPrint('errorCallback: $v');
           },
           currentValue: (c) {
-            print('currentValue: $c');
+            debugPrint('currentValue: $c');
           },
           onPressRightIcon: () {
-            print('onPressRightIcon: ');
+            debugPrint('onPressRightIcon: ');
           },
-          rightIconSvg: Icon(Icons.call_to_action), isMinor: 'false',
+          rightIconSvg: const Icon(Icons.call_to_action), isMinor: 'false',
         )
       )
     );

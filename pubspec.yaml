@@ -1,7 +1,7 @@
 name: custom_date_widget
 description: A new Flutter Package for Date Input Widget.
 version: 1.0.1
-homepage: mhdsafvankp@gmail.com
+homepage: https://github.com/mhdsafvankp/custom_date_widget.git
 
 environment:
   sdk: '>=2.18.2 <3.0.0'

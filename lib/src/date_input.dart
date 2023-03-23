@@ -1,6 +1,4 @@
 
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -24,10 +22,10 @@ class CustomDateField extends StatefulWidget {
   final Map<String, dynamic>? validation;
   final String? isMinor;
 
-  final Icon rightIconSvg;
+  final Icon? rightIconSvg;
 
   @override
-  _CustomDateFieldState createState() => _CustomDateFieldState();
+  createState() => _CustomDateFieldState();
 }
 
 enum BoarderEnum { unFocus , focus , error }
@@ -98,7 +96,7 @@ class _CustomDateFieldState extends State<CustomDateField> {
         error = _getValidationMsg('DT007');
       }
     }else if(type == '99year'){
-      if(_99yearValidate(_getFinalval() ?? '')){
+      if(_yearValidateMax99(_getFinalval() ?? '')){
         error = _getValidationMsg('DT008');
       }
     }
@@ -139,7 +137,7 @@ class _CustomDateFieldState extends State<CustomDateField> {
     }
   }
 
-  bool _99yearValidate(String birthDateString){
+  bool _yearValidateMax99(String birthDateString){
     if (birthDateString.isNotEmpty && '/'.allMatches(birthDateString).length == 2) {
       var array = birthDateString.split('/');
       var birthDate =
@@ -190,18 +188,18 @@ class _CustomDateFieldState extends State<CustomDateField> {
     return '${c1.text}/${c2.text}/${c3.text}';
   }
 
-  Widget _getInputField(String hint , BuildContext context ,TextEditingController _controller ,FocusNode f){
+  Widget _getInputField(String hint , BuildContext context ,TextEditingController controller ,FocusNode f){
     return IntrinsicWidth(
       child: TextFormField(
         focusNode: f,
-        cursorColor: Theme.of(context).textTheme.headline1?.color,
+        cursorColor: Theme.of(context).textTheme.displayLarge?.color,
         textInputAction: TextInputAction.done,
         keyboardType: TextInputType.number,
         maxLines: 1,
         inputFormatters: [
           FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
         ],
-        controller: _controller,
+        controller: controller,
         maxLength: (hint == 'DD' || hint == 'MM') ? 2 : 4,
         decoration: InputDecoration(
           isDense: true,
@@ -218,10 +216,10 @@ class _CustomDateFieldState extends State<CustomDateField> {
 
         onChanged: (value){
           if(value.isEmpty && hint == 'YYYY'){
-            print('previous focus YYYY');
+            debugPrint('previous focus YYYY');
             FocusScope.of(context).previousFocus();
           }else if(value.isEmpty && hint == 'MM'){
-            print('previous focus MM');
+            debugPrint('previous focus MM');
             FocusScope.of(context).previousFocus();
           }
           if(value.length >= 2 && (hint == 'DD' || hint == 'MM')){
@@ -276,24 +274,24 @@ class _CustomDateFieldState extends State<CustomDateField> {
   TextStyle? _getSlashStyle(isHint, BuildContext context ){
     return isHint?  TextStyle(
         color: Theme.of(context).hintColor
-    ) : TextStyle(color: Theme.of(context).textTheme.headline4?.color);
+    ) : TextStyle(color: Theme.of(context).textTheme.headlineMedium?.color);
   }
 
   Color _getBoarderColor(){
-    print('val : $borderLine');
+    debugPrint('val : $borderLine');
     if(BoarderEnum.focus == borderLine){
       return Theme.of(context).primaryColor;
     }else if(BoarderEnum.unFocus == borderLine){
       return Theme.of(context).dividerColor;
     }else{
-      return Theme.of(context).errorColor;
+      return Theme.of(context).colorScheme.error;
     }
   }
 
   @override
   void initState() {
     super.initState();
-    print('preFilled val initState - > ${widget.preFillDate} ');
+    debugPrint('preFilled val initState - > ${widget.preFillDate} ');
     if(widget.preFillDate !=null ){
       _addPreFillDate();
     }
@@ -301,7 +299,7 @@ class _CustomDateFieldState extends State<CustomDateField> {
   }
   @override
   Widget build(BuildContext context) {
-    print('preFilled val  Widget build- > ${widget.preFillDate} ');
+    debugPrint('preFilled val  Widget build- > ${widget.preFillDate} ');
 
     if(f1.hasFocus || f2.hasFocus || f3.hasFocus){
       borderLine = BoarderEnum.focus;
@@ -354,16 +352,16 @@ class _CustomDateFieldState extends State<CustomDateField> {
                       _getInputField('YYYY',context,c3,f3)
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   (widget.rightIconSvg != null)
                       ? GestureDetector(
                     onTap: widget.onPressRightIcon,
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
+                      padding:const EdgeInsets.symmetric(vertical: 10),
                       child: widget.rightIconSvg,
                     ),
                   )
-                      : Icon(Icons.date_range)
+                      : const Icon(Icons.date_range)
                 ],
 
               ),
@@ -374,7 +372,7 @@ class _CustomDateFieldState extends State<CustomDateField> {
             color: _getBoarderColor(),
           ),
          if(errorTxt.isNotEmpty)
-           Text(errorTxt ,style: TextStyle(color: Theme.of(context).errorColor ),)
+           Text(errorTxt ,style: TextStyle(color: Theme.of(context).colorScheme.error ),)
         ],
       ),
     );
